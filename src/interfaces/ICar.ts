@@ -1,6 +1,9 @@
-import { IVehicle } from './IVehicle';
+import { z } from 'zod';
+import { Vehicle } from './IVehicle';
 
-export interface ICar extends IVehicle {
-  doorsQty: number;
-  seatsQty: number;
-}
+export const car = Vehicle.extend({
+  doorsQty: z.number().int().min(2),
+  seatsQty: z.number().int().min(2),
+});
+
+export type ICar = z.infer<typeof car>;

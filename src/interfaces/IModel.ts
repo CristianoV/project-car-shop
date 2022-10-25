@@ -1,5 +1,5 @@
 export interface IModel<T> {
-  create: (data: Required<T>) => Promise<T>;
+  create: (data: T) => Promise<T>;
   read: () => Promise<T[]>;
   readOne: (id: string) => Promise<T | null>;
   update: (id: string, data: T) => Promise<T | null>;
