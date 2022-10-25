@@ -33,7 +33,20 @@ export default abstract class CarService<T> implements IService<T> {
     return frame;
   }
 
-  update(_id: string, obj: unknown): Promise<T> {
-    throw new Error('Method not implemented.');
+  public async update(_id: string, obj: unknown): Promise<T> {
+    if (_id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+    const parsed = this.schema.safeParse(obj);
+
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+
+    const frameUpdated = await this.model.update(_id, parsed.data);
+
+    if (!frameUpdated) {
+      throw new Error(ErrorTypes.EntityNotFound);
+    }
+
+    return frameUpdated;
   }
 }
