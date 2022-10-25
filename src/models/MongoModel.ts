@@ -4,7 +4,7 @@ import { IModel } from '../interfaces/IModel';
 export default abstract class MongoModel<T> implements IModel<T> {
   constructor(protected model: Model<T>) {}
 
-  public async create(data: Required<T>): Promise<T> {
+  public async create(data: T): Promise<T> {
     return this.model.create({ ...data });
   }
 
@@ -13,7 +13,7 @@ export default abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async readOne(id: string): Promise<T | null> {
-    return this.model.findOne({ id });
+    return this.model.findById(id);
   }
 
   public async update(id: string, data: T): Promise<T | null> {
