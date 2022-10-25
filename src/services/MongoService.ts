@@ -18,4 +18,10 @@ export default abstract class CarService<T> implements IService<T> {
 
     return this.model.create(parsed.data);
   }
+
+  public async read(): Promise<T[]> {
+    const frame = await this.model.read();
+    if (!frame) throw new Error(ErrorTypes.EntityNotFound);
+    return frame;
+  }
 }
