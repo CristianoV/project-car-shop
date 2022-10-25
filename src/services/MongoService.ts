@@ -49,4 +49,15 @@ export default abstract class CarService<T> implements IService<T> {
 
     return frameUpdated;
   }
+
+  public async delete(_id: string): Promise<T> {
+    if (_id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+
+    const frameDeleted = await this.model.delete(_id);
+
+    if (!frameDeleted) {
+      throw new Error(ErrorTypes.EntityNotFound);
+    }
+    return frameDeleted;
+  }
 }
