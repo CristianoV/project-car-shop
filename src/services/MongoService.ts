@@ -24,4 +24,16 @@ export default abstract class CarService<T> implements IService<T> {
     if (!frame) throw new Error(ErrorTypes.EntityNotFound);
     return frame;
   }
+
+  public async readOne(_id: string): Promise<T> {
+    if (_id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+    
+    const frame = await this.model.readOne(_id);
+    if (!frame) throw new Error(ErrorTypes.EntityNotFound);
+    return frame;
+  }
+
+  update(_id: string, obj: unknown): Promise<T> {
+    throw new Error('Method not implemented.');
+  }
 }
