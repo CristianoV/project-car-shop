@@ -37,7 +37,6 @@ describe('Testes na camada de Service - Car', () => {
 			} catch (err) {
 				error = err
 			}
-
 			expect(error).to.be.instanceOf(ZodError);
 		});
 	});
